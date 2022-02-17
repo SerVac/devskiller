@@ -14,15 +14,14 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class ForexEngineTest {
 
-    private static String USD = "USD";
-    private static String JPY = "JPY";
+    private final static String USD = "USD";
+    private final static String JPY = "JPY";
 
     private ForexEngine forexEngine = new ForexEngine();
 
     @Test
     public void shouldSetRate() throws Exception {
         BigDecimal update = forexEngine.update(new Pair(USD, JPY), BigDecimal.valueOf(109.82), ZonedDateTime.now());
-//        assertThat(update).isEqualTo(BigDecimal.ZERO);
         assertTrue(update.compareTo(BigDecimal.ZERO) == 0);
     }
 
@@ -35,7 +34,6 @@ public class ForexEngineTest {
         BigDecimal update = forexEngine.update(new Pair(USD, JPY), BigDecimal.valueOf(109.83), newerDate);
 
         assertThat(update).isEqualTo(BigDecimal.valueOf(0.01));
-//        assertTrue(update.compareTo(BigDecimal.valueOf(0.01)) == 0);
     }
 
     @Test

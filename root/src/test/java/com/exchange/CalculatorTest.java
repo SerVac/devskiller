@@ -13,8 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.withinPercentage;
 
 public class CalculatorTest {
-    private static String USD = "USD";
-    private static String JPY = "JPY";
+
+    private final static String USD = "USD";
+    private final static String JPY = "JPY";
 
     public ForexEngine forexEngine = Mockito.mock(ForexEngine.class);
     public Calculator calculator = new Calculator(forexEngine);
@@ -32,9 +33,12 @@ public class CalculatorTest {
     }
 
     @Test
+    // TODO
     public void shouldExchangeWithInvertedRate() throws Exception{
-        Mockito.when(forexEngine.getExchangeRate(new Pair(JPY, USD))).thenThrow(new RateUnavailableException());
-        Mockito.when(forexEngine.getExchangeRate(new Pair(USD, JPY))).thenReturn(BigDecimal.TEN);
+        Mockito.when(forexEngine.getExchangeRate(new Pair(JPY, USD)))
+                .thenThrow(new RateUnavailableException());
+        Mockito.when(forexEngine.getExchangeRate(new Pair(USD, JPY)))
+                .thenReturn(BigDecimal.TEN);
 
         Money usd = calculator.exchange(
                 new Money(BigDecimal.valueOf(200), Currency.getInstance(JPY)),
